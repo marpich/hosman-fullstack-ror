@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require "csv"
+
+filepath = "db/experts.csv"
+
+puts "Creating the experts"
+
+CSV.foreach(filepath, headers: :first_row) do |row|
+  expert = Expert.new(
+    name: row['name'],
+    city: row['city'],
+    score_a: row['score_a'],
+    score_b: row['score_b'],
+    score_c: row['score_c'],
+    nb_sales: row['nb_sales']
+  )
+  expert.save!
+end
+
+puts "Creating experts done"
